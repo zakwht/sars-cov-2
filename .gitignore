@@ -1,0 +1,4 @@
+*.aux
+*.out
+*.txt
+.DS_Store
