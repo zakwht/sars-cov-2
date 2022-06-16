@@ -1,0 +1,42 @@
+Below are the formulas for sensitivity (true positive rate, TPR), specificity (true negative rate, TNR), and classification accuracy (ACC).
+
+\begin{equation}
+    TPR = \frac{TP}{P} = \frac{TP}{TP + FN}
+\end{equation}
+\begin{equation}
+    TNR = \frac{TN}{N} = \frac{TN}{TN + FP}
+\end{equation}
+\begin{equation}
+    ACC = \frac{TP + TN}{P + N} = \frac{TP + TN}{TP + FN + TN + FP}
+\end{equation}
+Where:
+\begin{itemize}
+    \setlength\itemsep{0em}
+    \item $P$ is the total number of pos. sequences
+    \item $N$ is the total number of neg. sequences
+    \item $TP$ is the number of pos. sequences classified as pos. (true positive)
+    \item $TN$ is the number of neg. sequences classified as neg. (true negative)
+    \item $FP$ is the number of neg. sequences classified as pos. (false positive)
+    \item $FN$ is the number of pos. sequences classified as neg. (false negative)
+\end{itemize}
+
+\vspace{1em}
+
+Baseline model calculations
+\[ TPR = \frac{5}{6} = 0.8333 \]
+\[ TNR = \frac{1}{2} = 0.5000 \]
+\[ ACC = \frac{5 + 1}{6 + 2} = \frac{6}{8} = 0.7500 \]
+
+\vspace{1em}
+
+Eliminative model calculations
+\[ TPR = \frac{14}{17} = 0.8235 \]
+\[ TNR = \frac{6}{9} = 0.6667 \]
+\[ ACC = \frac{14 + 6}{17 + 9} = \frac{20}{26} = 0.7692 \]
+
+\vspace{1em}
+
+Structural model calculations
+\[ TPR = \frac{24}{27} = 0.8889 \]
+\[ TNR = \frac{9}{14} = 0.6429 \]
+\[ ACC = \frac{24 + 9}{27 + 14} = \frac{33}{41} = 0.8049 \]

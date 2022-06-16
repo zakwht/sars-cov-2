@@ -1,0 +1,79 @@
+\newcommand{\spec}[5]{#1 (\emph{#2}) & \href{https://www.ncbi.nlm.nih.gov/protein/#3}{#3} & #4 #5 }
+
+\newcommand{\cA}{\cite{Luan2020}}
+\newcommand{\cB}{\cite{Zhao2020}}
+\newcommand{\cC}{\cite{Leroy2020}}
+\newcommand{\cD}{\cite{Richard2020}}
+\newcommand{\cE}{\cite{OudeMunnink2021}}
+\newcommand{\cF}{\cite{Palmer2021}}
+\newcommand{\cG}{\cite{Chan2020}}
+\newcommand{\cH}{\cite{OIE2022}}
+\newcommand{\cI}{\cite{Sreenivasan2020}}
+\newcommand{\cJ}{\cite{Shi2020}}
+\newcommand{\cK}{\cite{Lu2020}}
+\newcommand{\cL}{\cite{Woolsey2020}}
+\newcommand{\cM}{\cite{Schlottau2020}}
+
+\enlargethispage{2em}
+\begin{table}[ht!]
+    \begin{adjustwidth}{-12em}{-12em}
+    \centering
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Species} & \textbf{Accession} & \textbf{Susceptible} \\
+        \hline
+        \spec{Dromedary}{camelus dromedarius}{XP_031301717.1}{No}{\cA} \\
+        \spec{Raccoon}{procyon lotor}{BAE72462.1}{No}{\cA} \\
+        \spec{Greater horseshoe bat}{rhinolophus ferrumequinum}{XP_032963186.1}{No}{\cA} \\
+        \spec{Brown rat}{rattus norvegicus}{NP_001012006.1}{No}{\cA\cB} \\
+        \spec{House mouse}{mus musculus}{NP_001123985.1}{No}{\cA\cB} \\
+        \spec{Platypus}{ornithorhynchus anatinus}{XP_001515597.2}{No}{\cA} \\
+        \spec{African bush elephant}{loxodonta africana}{XP_023410960.1}{No}{\cA} \\
+        \spec{European hedgehog}{erinaceus europaeus}{XP_007538670.1}{No}{\cA} \\
+        \spec{Raccoon dog}{nyctereutes procyonoides}{ABW16956.1}{No}{\cA} \\
+        \spec{Meerkat}{suricata suricatta}{XP_029786256.1}{No}{\cA} \\
+        \spec{Kangaroo rat}{dipodomys ordii}{XP_012887573.1}{No}{\cA} \\
+        \spec{Guinea pig}{cavia porcellus}{XP_023417808.1}{No}{\cA} \\
+        \spec{Domestic pig}{sus domesticus}{ASK12083.1}{No}{\cI\cJ} \\
+        \spec{Mallard}{anas platyrhynchos}{XP_012949915.3}{No}{\cI\cJ} \\
+        \spec{Human}{homo sapiens}{BAB40370.1}{Yes}{} \\
+        \spec{Rhesus macaque}{macaca mulatta}{XP_028697658.1}{Yes}{\cA\cB} \\
+        \spec{European rabbit}{oryctolagus cuniculus}{QHX39726.1}{Yes}{\cB} \\
+        \spec{House cat}{felis catus}{XP_044906242.1}{Yes}{\cA\cH\cC\cB} \\
+        \spec{Domestic dog}{canis familiaris}{NP_001158732.1}{Yes}{\cA\cH\cC\cB} \\
+        \spec{Siberian tiger}{panthera tigris}{XP_042830022.1}{Yes}{\cB} \\
+        \spec{Golden snub-nosed monkey}{rhinopithecus roxellana}{XP_010364367.2}{Yes}{\cA} \\
+        \spec{Olive baboon}{papio anubis}{XP_021788733.1}{Yes}{\cA} \\
+        \spec{Chimpanzee}{pan troglodytes}{XP_016798468.1}{Yes}{\cA} \\
+        \spec{Orangutan}{pongo abelii}{XP_024096013.1}{Yes}{\cA} \\
+        \spec{Ferret}{mustela putorius furo}{NP_001297119.1}{Yes}{\cH\cE\cJ\cD} \\
+        \spec{Mink}{mustela lutreola biedermanni}{QNC68911.1}{Yes}{\cH\cE} \\
+        \spec{White-tailed deer}{odocoileus virginianus texanus}{XP_020768965.1}{Yes}{\cH\cF} \\
+        \spec{Golden hamster}{mesocricetus auratus}{XP_005074266.1}{Yes}{\cH\cG} \\
+        \spec{Canadian lynx}{lynx canadensis}{XP_030160839}{Yes}{\cH} \\
+        \spec{North american river otter}{lontra canadensis}{XP_032736029.1}{Yes}{\cH} \\
+        \spec{Cougar}{puma concolor}{XP_025790417.1}{Yes}{\cH} \\
+        \spec{Western lowland gorilla}{gorilla gorilla gorilla}{XP_018874749.1}{Yes}{\cH} \\
+        \spec{Spotted hyena}{crocuta crocuta}{KAF0878287.1}{Yes}{\cH} \\
+        \spec{Amur leopard}{panthera pardus orientalis}{XP_019273509.1}{Yes}{\cH} \\
+        \spec{Pangolin}{manis pentadactyla}{QLH93383.1}{Yes}{\cA\cI} \\
+        \spec{Big-eared horseshoe bat}{rhinolophus macrotis}{ADN93471.1}{Yes}{\cA\cI} \\
+        \spec{Leschenault's rousette}{rousettus leschenaultii}{BAF50705.1}{Yes}{\cA\cI} \\
+        \spec{Common marmoset}{callithrix jacchus}{XP_008987241.1}{Yes}{\cE\cK} \\
+        \spec{Cynomolgus macacque}{macaca fascicularis}{XP_005593094.1}{Yes}{\cE\cK} \\
+        \spec{Greater short-nosed fruit bat}{cynopterus sphinx}{QKE49997.1}{Yes}{\cE\cM} \\
+        \spec{Green monkey}{chlorocebus sabaeus}{XP_037842285.1}{Yes}{\cL\cE} \\
+        \hline
+    \end{tabular}
+    \end{adjustwidth}
+    \figcaption{Table}{Species with confirmed accuracies}
+\end{table}
+% \vspace{-2cm}
+% hamster, deer, ferret, cat and dog (C), greenmonk all have unique sources
+% [A=E,K]: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7434851/
+% [B=E,L]: https://www.biorxiv.org/content/10.1101/2020.05.17.100289v1
+% [C=E,M]: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7340389/ (and pigs)
+% common marmoset (callithrix jacchus): A
+% cyno macaque (macaca fascicularis): A
+% GSNF bat (Cynopterus sphinx): C
+% green monkey (chlorocebus sabaeus): B

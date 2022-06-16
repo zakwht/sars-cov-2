@@ -1,0 +1,7 @@
+% WORK AROUND FOR INDENTED FOOTNOTE 
+\makeatletter
+\renewcommand\@makefntext[1]{%
+\setlength\parindent{1em}%
+\noindent
+\mbox{\@thefnmark.~}{#1}}
+\makeatother

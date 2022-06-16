@@ -1,0 +1,37 @@
+\newpage
+\begin{appendices}
+
+\section{Sequence Lists}
+\input{content/species}
+
+Table A.1 lists the full set of sequences used for testing and training the models, and Table A.2 lists sequences used for susceptibility prediction, each with accession IDs from the NCBI database. 
+ABC!
+
+\input{content/species-prediction}
+
+Table A.3 lists the protein structure models used for the structural analysis, from the AlphaFold Protein Structure Database. Structure \href{https://www.rcsb.org/structure/6VW1}{6VW1} was also used to model the binding between the virus spike protein and ACE2, retrieved from the RCSB Protein Data Bank.
+
+\input{content/species-structure}
+
+\newpage
+\section{Structural Analysis}
+Table B.1 summarizes the findings of the structural analysis, noting whether or not each position appeared as a potential binding site, and whether or not the mutation affected the protein's structure.
+\input{content/structural-analysis}
+
+\newpage
+\section{Calculations}
+\input{content/equations}
+
+\newpage
+\section{Statistical Analysis}
+
+Table D.1 summarizes the results of the nine statistical tests performed, including the chi-square test statistic ($\chi^2$), degrees of freedom (DF) and the p-value. No null hypotheses were rejected.
+
+\input{content/statistics}
+
+The following listings are a selection of the R output of the tests, to convey more information including contingency tables for the McNemar tests and confidence intervals for the proportion tests.
+
+\input{content/mcnemar-output}
+\input{content/proportion-tests}
+\end{appendices}
+

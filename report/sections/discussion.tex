@@ -1,0 +1,44 @@
+\section{Discussion}
+
+Revisiting the positions selected as features for each model (Table 3.4), the structural model was almost completely in agreement with the UniProt findings --- the exceptions were positions 41 and 113. Position 41 was excluded from the model arbitrarily: among the data used for this study, no sequences featured mutations at position 41. Position 113 was included in the eliminative model, and kept in the structural model because of the change in structure caused by the mutation to asaparagine (N). This disconnect between the positions in the model and the UniProt findings could mean this is a novel mutation that affects susceptibility, or it could be an extraneous finding attributed to an imperfect structural analysis.
+
+The structural model's positions of focus were most similar to the UniProt findings, but the eliminative model also shared a considerable overlap: five of eight positions in the feature set appeared on the UniProt overview, and four appeared in this study's related work \cite{Li2021,Zhao2020,Luan2020}. This is surprising, especially given the limited size of training data provided for the eliminative algorithm, and suggests the algorithm has some validity.
+
+A well-trained and -tested model could be used to predict susceptibility in hosts where it is not already known. Table 4.1 shows the classifications of new sequences for each model.
+
+\input{content/predictions}
+
+The eliminative and structural models made the same predictions for each sequence. Focusing on where the models classified differently, it can be argued the eliminative and structural models' classifications were more intuitive based on existing knowledge:
+\begin{itemize}
+    \setlength\itemsep{0em}
+    \item based on other rodents being immune (mice, rats), it would make sense for the chinchilla to be;
+    \item based on other bats being susceptible, it would make sense for the black flying fox to be.
+\end{itemize}
+
+The structural model outperformed the other models in terms of classification accuracy, but the eliminative model was a close second. This further validates the algorithm used to identify influential mutations for features in the eliminative model. 
+
+Although the eliminative model did not involve any biological considerations, it performed similarly to the improved structural model which did; this suggests there is some rationality to the use of machine learning for this problem. The underachievement of the baseline model suggests the univariate feature selection strategy is not as suitable, at least given the training size.
+
+\subsection{Limitations}
+
+The greatest restriction of this study was the limited amount of data available surrounding species’ susceptibilities to the virus; SARS-CoV-2 is ever-topical and more information about spike protein and ACE2 interaction is still surfacing. The consequence of this limitation is a high risk of overfitting, less accurate models, and less confidence in performance metrics.
+% mention that higher sample size improves chances of finding statistical difference
+% "Your data should be randomly selected from a population, where each item has an equal chance of being selected." is an assumption for comparing proportions so the comparisons of spec/sens might not be perfect... lol. (sequence diversity can't be ensured)
+
+Another limitation is the categorical and nonordinal nature of the features: the acids cannot be represented as numbers, nor can they be logically sorted. This severely restricts the variety of machine learning methods that can be used for the problem.
+
+\subsection{Future Direction}
+
+There are variations on the original problem that could be interesting for future work, specifically:
+
+\begin{itemize}
+    \item A \textbf{multinomial classification} model that categorizes sequences into degrees of susceptibility (i.e., immune, moderately susceptible, very susceptible). The UniProt mutagenesis summary for ACE2 highlights that some mutations abolish interaction with the spike protein, while others inhibit or increase interaction to various extents \cite{UniProt}. In the structural model, the hamster sequences was misclassified as immune by its serine at position 426, which has been identified as a mutation that only slightly inhibits interaction with the spike protein \cite{UniProt,Li2005}, not abolishing interaction as the model assumes. 
+    \item A \textbf{multi-label classification} model that classifies hosts as susceptible, symptomatic, zoonotically potential (transmittable to humans), and/or intraspecies transmittable. Among the set of animals known to be susceptible to SARS-CoV-2, some have been identified as asymptomatic, and some unlikely to transmit the virus to humans or other hosts of the same species \cite{OIE2022,Singh2021}.
+    \item A model with a \textbf{multidimensional feature space}. Each of the twenty amino acids can be categorized based on polarity, charge, and molecular size. Rather than focusing on the specific acid at each position, the model could classify the sequence based on these characteristics.
+\end{itemize}
+% Also, same as before with the mutations in multiple in a row having an effect. Like 82-84. If i looked at all of them structurally (include graphic here of 83 with bridge to 79 or whatever) then it could be more accurate. Also the effects 425-427 together have been specificalyl researched (we can see that the combined effects of 426 and 427 make for a structural differnce in the rat ortholog).
+% Clustering
+A more involved structural analysis could improve the performance of the structural model, specifically its specificity if more mutations that affected structure were identified. The analysis used for this model was based on the findings of the existing study used for the eliminative model, but extending beyond that set of mutations could reveal more potential influential positions. The analysis could be further strengthened by investigating the effect of mutations at consecutive positions; existing studies have reported consecutive mutations at sites 82-84 and 425-427 that each inhibit interaction with the spike protein \cite{Li2005,Li2021,UniProt}.
+% -> look at more sites for structure differences
+% -> compare with spike protein
+% -> compare effect of consecutive mutations

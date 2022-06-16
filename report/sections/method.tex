@@ -1,0 +1,57 @@
+\section{Method}
+
+\subsection{Data}
+Fourty-one ACE2 sequences from various animal hosts were collected from the NCBI protein database\footnote{\url{https://www.ncbi.nlm.nih.gov/protein}}. Each host has been identified as either susceptible or insusceptible to the virus, based on:
+\begin{itemize}
+    \setlength\itemsep{0em}
+    \item investigations into non-human primates as models for human
+    infection;
+    \item research into potential origin species (bats, pangolins);
+    \item lab studies that assessed binding affinities between the SARS-CoV-2 spike protein and ACE2 in various hosts;
+    \item studies focusing on transmission between humans and livestock, house pets, and city animals; and
+    \item reports on city and zoo animals contracting the virus.
+\end{itemize}
+
+Additional sequences were collected to classify hosts whose susceptibilities are unknown. Each sequence was aligned with the human ACE2 sequence using the Needleman-Wunsch algorithm (via the EMBOSS Needle pairwise sequence alignment tool\footnote{\url{https://www.ebi.ac.uk/Tools/psa/emboss_needle/}}) to produce an optimal global alignment. This preprocessing step ensured that indexing of each sequence correlated to that of the human ortholog.
+
+For the structural analysis, three protein models were retrieved from the AlphaFold Protein Structure Database\footnote{\url{https://alphafold.ebi.ac.uk/}}, and one structure modelling the interaction between the SARS-CoV-2 spike protein and human ACE2 was retrieved from the RCSB Protein Data Bank\footnote{\url{https://www.rcsb.org/}}.
+
+Exhaustive lists of sequences are attached in Appendix A.
+
+\subsection{Baseline Model}
+
+First, a baseline classification model was created using a feature importance algorithm which scored the acids at each index as a feature. This step was implemented using the scikit-learn\footnote{\url{https://scikit-learn.org/}} machine learning package's univariate feature selection tools, with the features scored using chi-squared tests with a 97.5\% confidence threshold ($\alpha = 0.025$). 
+
+This algorithm identified which acids in the training data had the greatest effect on susceptibility, and the results were used to create a categorical binary decision tree.
+
+\subsection{Eliminative Model}
+
+A second model was designed by extending on the results of an existing study \textcitecomma{White21} that focused on mutations that eliminate binding affinity between ACE2 and the SARS-CoV-2 spike protein. The original analysis involved an iterative algorithm that isolated mutations that appeared exclusively in immune sequences (Algorithm 2.1).
+
+\input{content/algorithm}
+
+The mutations were scored based on frequency in immune sequences and inversely based on the total number of mutations in the sequence. The mutations with scores that exceeded a defined threshold ($\alpha = 0.5$) were used as the basis for another binary decision tree.
+
+\subsection{Structural Model}
+
+A reduced model was created by pairing the findings of the eliminative model with a structural analysis, with the goal of removing extraneous results. For each mutation identified in the original work used for the previous model, a manual structural investigation into the mutation was conducted using the molecular visualization tool PyMOL\footnote{\url{https://pymol.org/}}, involving:
+
+\begin{itemize}
+    \setlength\itemsep{0em}
+    \item comparing the structure of the mutated sequence with the structure of the human ACE2 sequence.
+    % \item investigating how the mutation affects the surrounding structure (neighbouring acids). 
+    \item looking at a model of the spike protein binding with human ACE2 to understand if the position may be a binding site.
+\end{itemize}
+
+\subsection{Model Comparison}
+
+The classification models were evaluated using testing sets of different lengths: the baseline model was tested against seven sequences (80/20 train/test split), the eliminative model was tested against 26 sequences (the subset of sequences that were not used in the original study), and the structural model was tested using the full set of 41 sequences.
+
+The testing sets were used to produce confusion metrics for each model, from which performance sensitivity, specificity, and accuracy were derived. These performance metrics were used to compare the models.
+
+Two types of pairwise statistical hypothesis tests were performed to determine if there was statistical difference between models:
+\begin{itemize}
+    \setlength\itemsep{0em}
+    \item Two-sample tests for equality of proportions were used for sensitivity and specificity.
+    \item McNemar's tests were used for error rate.
+\end{itemize}

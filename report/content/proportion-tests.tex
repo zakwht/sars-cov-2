@@ -1,0 +1,50 @@
+\begin{mdframed}[backgroundcolor=black!5,hidealllines=true,innerleftmargin=0.2cm,innerrightmargin=0.2cm,innertopmargin=0.2cm,innerbottommargin=0.2cm,nobreak=false]
+\begin{verbatim}
+> sens.test(baseline, eliminative)
+baseline sensitivity: 0.833333333333333
+eliminative sensitivity: 0.823529411764706
+    2-sample test for equality of proportions
+X-squared = 2.2428e-31, df = 1, p-value = 1
+95 percent confidence interval: -0.3489446  0.3685524
+
+> sens.test(baseline, structural)
+baseline sensitivity: 0.833333333333333
+structural sensitivity: 0.888888888888889
+    2-sample test for equality of proportions
+X-squared = 3.7369e-31, df = 1, p-value = 1
+95 percent confidence interval: -0.4320077  0.3208966
+
+> sens.test(eliminative, structural)
+eliminative sensitivity: 0.823529411764706
+structural sensitivity: 0.888888888888889
+    2-sample test for equality of proportions
+X-squared = 0.026908, df = 1, p-value = 0.8697
+95 percent confidence interval: -0.3298345  0.1991156
+
+> spec.test(baseline, eliminative)
+baseline specificity: 0.5
+eliminative specificity: 0.666666666666667
+    2-sample test for equality of proportions
+X-squared = 3.504e-32, df = 1, p-value = 1
+95 percent confidence interval: -1.0000000  0.7583094
+\end{verbatim}
+\end{mdframed}
+\begin{mdframed}[backgroundcolor=black!5,hidealllines=true,innerleftmargin=0.2cm,innerrightmargin=0.2cm,innertopmargin=0.2cm,innerbottommargin=0.2cm]
+\begin{verbatim}
+> spec.test(baseline, structural)
+baseline specificity: 0.5
+structural specificity: 0.642857142857143
+    2-sample test for equality of proportions
+X-squared = 3.0052e-32, df = 1, p-value = 1
+95 percent confidence interval: -1.0000000  0.7370075
+
+> spec.test(eliminative, structural)
+eliminative specificity: 0.666666666666667
+structural specificity: 0.642857142857143
+    2-sample test for equality of proportions
+X-squared = 1.5498e-32, df = 1, p-value = 1
+95 percent confidence interval: -0.3973015  0.4449206
+\end{verbatim}
+\end{mdframed}
+\vspace{-1em}
+\figcaption{Listing}{R output of proportion tests}

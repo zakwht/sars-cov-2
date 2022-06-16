@@ -1,0 +1,56 @@
+\section{Results}
+
+%     maybe misclassifications of each model and show each index and highlight where the model focuses.
+%     31/41/82/.../679 m1 m2 m3 actual
+%     A  F  P /.../ G  +  -  +  +
+%     negative emphasized there.
+\subsection{Preliminary Results}
+
+The feature selection algorithm for the baseline model found six sites that best discriminate the susceptibility of the training sequences (Table 3.1). Each position has specific set of amino acids that increase likelihood of a sequence being immune.
+
+\input{content/feature-importance-results}
+
+The eliminative algorithm based on the original study identified eight mutations that only appeared in immune sequences, shown in Table 3.2.
+
+\input{content/original-mutations}
+
+\subsection{Structural Analysis}
+
+By complementing the findings of the preliminary findings with a structural analysis, the feature set used for the structural model was reduced to five sites. 
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figures/structure-353.png}
+    \figcaption{Figure}{The structural effect of mutation H353}
+\end{figure}
+
+As an sample of the findings of the investigation, Figure 3.1 depicts the change caused by the mutation at position 353 from lysine (K) to histidine (H). The human ortholog is coloured pink, and the rat ortholog containing the mutation is coloured cyan. This mutation abolishes a polar bond between the residue at position 353 and the aspartate (D) at position 38. Further, the lysine at position 353 in the human sequence displayed potential to bond with the virus spike protein, suggesting it may be a binding site. Since the mutation had an affect on the structure of the protein and there is evidence it may be a binding site, the mutation was included in the structural model. 
+
+\input{content/structural-mutations}
+
+The list of mutations used for the structural model is depicted in Table 3.3, and a more detailed overview of the structural analysis involved is included in Appendix B.
+
+\subsection{Model Design}
+
+With the set of mutations that abolish susceptibility identified for each model, three categorical binary decision trees were made for classification. Table 3.4 outlines the subset of positions selected for use in each model.
+
+\input{content/positions}
+
+Each marked cell indicates the position was used as a feature in the model of the column, where B, E, and S represent the baseline, eliminative, and structural models, respectively. The UniProt column is marked for each position where the UniProt database's mutagenesis overview identified the position as influential to susceptibility \cite{UniProt}. The UniProt database consolidates the findings of many studies to summarize how mutations affect susceptibility; this column represents a standard of comparison for the feature set of each model.
+
+It is clear from this table that the structural model was most true to the findings outlined on UniProt, while the baseline model was not similar at all.
+
+\subsection{Model Performance}
+
+Each model was evaluated using its corresponding test set to produce confusion matrices (Table 3.5). The rows of the matrices represent the true class of the sequences, and the columns represent the model's predicted class.
+
+\input{content/confusion-matrices}
+
+The sensitivity (true positive rate), specificity (true negative rate), and accuracy for each model were computed based on the confusion matrices (Table 3.6). The structural model had the highest accuracy and sensitivity, meaning it was more successful than the other models at correctly identifying sequences that are susceptible, and more successful at classifying sequences overall \cite{Vu2015}. The eliminative model had a marginally higher specificity.
+
+\input{content/metrics}
+
+Pairwise two-sample tests for equality of proportions used to compare sensitivities and specificities revealed no statistically significant difference between the performances of the models. Further, McNemar's tests used to compare error rates found no statistical difference between the misclassification rates of models \cite{Vu2015, PatrickWalters2021, Crawley2015}.
+
+Formulae and equations used for computing performance metrics are included in Appendix C, and a summary of statistical tests is included in Appendix D.  
+% look into https://en.wikipedia.org/wiki/Total_operating_characteristic

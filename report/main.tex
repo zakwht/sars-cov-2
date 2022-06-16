@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[backend=biber,style=ieee,citestyle=numeric-comp]{biblatex} %for bibliography
+\usepackage{array} % for table m
+\usepackage{multirow} % tables
+\usepackage{hyperref} % urls
+\usepackage{underscore} % annoying -> seq ids
+\usepackage{xspace} % spacing (copyright)
+\usepackage{chngpage} % margin changes (species table)
+\usepackage[list=true]{subcaption} % confusion matrix tables
+\usepackage[title,titletoc]{appendix} % for appendices
+\usepackage{chngcntr} % for section labels on tables and figures
+% \usepackage{listings} % code and output listings
+\usepackage{xcolor} % colors (for listings)
+\usepackage[framemethod=tikz]{mdframed} % listings
+\usepackage{capt-of} % for captions outside floats: listings
+\usepackage{tocloft} % for defining custom lists (\listof)
+\usepackage[ruled,vlined]{algorithm2e} % algorithms
+
+
+% \lstset{  
+% % language=Java,  
+% % tabsize=4,  
+% % basicstyle=\ttfamily,  
+% % basicstyle=\linespread{1.1}\ttfamily\footnotesize,xleftmargin=0.7cm,
+%     % frame=tlbr, framesep=0.2cm, framerule=0pt,
+% % backgroundcolor=\color{lightgray},  
+% % showstringspaces=false  
+% }
+
+
+% ccs concepts: feature selection, 
+
+\addbibresource{references.bib}
+\hypersetup{ colorlinks=true, urlcolor=black, linkcolor=black, citecolor=black } % urls
+
+\patchcmd{\appendices}{\quad}{: }{}{} % appendix titles with colons
+\input{fixes/footnotes}
+\input{fixes/list}
+\input{fixes/references}
+
+\title{The Role of Machine Learning in SARS-CoV-2 Susceptibility Classification}
+\author{Zak White}
+\date{April 22, 2022}
+
+% code marathon
+\begin{document}
+\pagenumbering{roman}
+\input{sections/frontmatter}
+\pagenumbering{arabic}
+\newpage\input{sections/introduction}
+\newpage\input{sections/method}
+\newpage\input{sections/results}
+\newpage\input{sections/discussion}
+\newpage\input{sections/conclusion}
+\newpage\input{sections/backmatter}
+\input{sections/appendix}
+\end{document}

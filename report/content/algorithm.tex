@@ -1,0 +1,20 @@
+\begin{algorithm}[ht]
+  \NoCaptionOfAlgo
+  \SetAlgoLined
+  \For {each immune sequence $S^-$}{
+    \For {each i \textless length of $S^-$} {
+        $isInfluentialIndex \leftarrow$ True\;
+        \For {each susceptible sequence $S^+$}{
+            \If {$i^{th}$ acid in $S^-$ == $i^{th}$ acid in $S^+$}{
+            $isInfluentialIndex \leftarrow$ False\;
+            }
+        }
+        \If {isInfluentialIndex} {
+            \tcp{The mutation may be influential}
+            Record $i$, $i^{th}$ acid in $S^-$
+        }
+    }
+  }
+  \figcaption{Algorithm}{Finding potential influential mutations} 
+%   \vspace{-32pt}
+\end{algorithm}

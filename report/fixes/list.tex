@@ -1,0 +1,43 @@
+% COMBINED LIST OF TABLES AND FIGURES (and listings and algorithms, etc)
+% (requires capt-of and tocloft)
+\newcounter{combinedfigure}
+\newcounter{combinedtable}
+\newcounter{combinedlisting}
+\newcounter{combinedalgorithm}
+
+\makeatletter
+\@addtoreset{combinedtable}{section}
+\@addtoreset{combinedlisting}{section}
+\@addtoreset{combinedfigure}{section}
+\@addtoreset{combinedalgorithm}{section}
+\makeatother
+
+\newcommand{\stepcombinedcounter}[1]{
+\ifstrequal{#1}{Table}{\refstepcounter{combinedtable}}{}
+\ifstrequal{#1}{Listing}{\refstepcounter{combinedlisting}}{}
+\ifstrequal{#1}{Figure}{\refstepcounter{combinedfigure}}{}
+\ifstrequal{#1}{Algorithm}{\refstepcounter{combinedalgorithm}}{}
+}
+
+\newcommand{\combinedcounter}[1]{%
+\ifstrequal{#1}{Table}{\thecombinedtable}{}%
+\ifstrequal{#1}{Listing}{\thecombinedlisting}{}%
+\ifstrequal{#1}{Figure}{\thecombinedfigure}{}%
+\ifstrequal{#1}{Algorithm}{\thecombinedalgorithm}{}%
+}
+
+\newcommand{\combinedlistname}{\Large List of Tables and Figures}
+\newlistof{combined}{combined2}{\combinedlistname}
+
+\newcommand{\figcaption}[2]{%
+\par\stepcombinedcounter{#1}%
+\captionof*{table}{#1~\thesection.\combinedcounter{#1}: #2}%
+\addcontentsline{combined2}{combined}{\textbf{#1~\thesection.\combinedcounter{#1}} #2}%
+}
+
+% when TOC should exclude some text from caption
+\newcommand{\figcaptionalt}[3]{%
+\par\stepcombinedcounter{#1}%
+\captionof*{table}{#1~\thesection.\combinedcounter{#1}: #2}%
+\addcontentsline{combined2}{combined}{\textbf{#1~\thesection.\combinedcounter{#1}} #3}%
+}

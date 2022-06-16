@@ -1,0 +1,31 @@
+\begin{table}[ht]
+  \centering
+  \begin{tabular}[t]{ c c c c c }
+    \hline
+    \multicolumn{5}{c}{\textbf{McNemar's Test}} \\
+    \multicolumn{5}{l}{$H_0$: models have equal error rates} \\
+    \hline
+    \multicolumn{2}{c}{Models} & {\footnotesize $\chi^2$} & DF & p-value \\
+    B & E & 0 & 1 & 1 \\
+    B & S & 0.125 & 1 & 0.7237 \\
+    E & S & 0 & 1 & 1 \\
+    \hline
+    \multicolumn{5}{c}{\textbf{Proportion Test: Sensitivity}} \\
+    \multicolumn{5}{l}{$H_0$: models have equal sensitivities} \\
+    \hline
+    \multicolumn{2}{c}{Models} & {\footnotesize $\chi^2$} & DF & p-value \\
+    B & E & 0 & 1 & 1 \\
+    B & S & 0 & 1 & 1 \\
+    E & S & 0.0269 & 1 & 0.8697 \\
+    \hline
+    \multicolumn{5}{c}{\textbf{Proportion Test: Specificity}} \\
+    \multicolumn{5}{l}{$H_0$: models have equal specificities} \\
+    \hline
+    \multicolumn{2}{c}{Models} & {\footnotesize $\chi^2$} & DF & p-value \\
+    B & E & 0 & 1 & 1 \\
+    B & S & 0 & 1 & 1 \\
+    E & S & 0 & 1 & 1 \\
+    \hline
+  \end{tabular}
+  \figcaption{Table}{Summary of performed hypothesis tests}
+\end{table}

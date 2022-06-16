@@ -1,0 +1,31 @@
+\begin{mdframed}[backgroundcolor=black!5,hidealllines=true,innerleftmargin=0.2cm,innerrightmargin=0.2cm,innertopmargin=0.2cm,innerbottommargin=0.2cm]
+\begin{verbatim}
+> mcnemar.print("baseline", "eliminative", c(23,4,5,9))
+        eliminative
+baseline  + -
+        + 23 5
+        -  4 9
+
+  McNemar's Chi-squared test with continuity correction
+McNemar's chi-squared = 0, df = 1, p-value = 1
+
+> mcnemar.print("baseline", "structural", c(24,3,5,9))
+        structural
+baseline  + -
+        + 24 5
+        -  3 9
+
+  McNemar's Chi-squared test with continuity correction
+McNemar's chi-squared = 0.125, df = 1, p-value = 0.7237
+
+> mcnemar.print("eliminative", "structural", c(28,0,1,12))
+            structural
+eliminative  +  -
+          + 28  1
+          -  0 12
+
+  McNemar's Chi-squared test with continuity correction
+McNemar's chi-squared = 0, df = 1, p-value = 1
+\end{verbatim}
+\end{mdframed}
+\figcaption{Listing}{R output of McNemar tests}
