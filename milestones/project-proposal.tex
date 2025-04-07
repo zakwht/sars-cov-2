@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[backend=biber,style=ieee]{biblatex} %for bibliography
+
+\addbibresource{references.bib}
+\newcommand{\textcitecomma}[1]{(\citeauthor{#1}, \citeyear{#1})}
+
+\title{CSC499 Project Proposal}
+\author{Zak White}
+\date{January 28, 2022}
+
+\begin{document}
+
+\begin{center}
+    {\Large Project Proposal} \\
+    CSC499 \\
+    
+    Zak White \\
+    V00899901 \\
+    January 28, 2022 \\
+\end{center}
+
+\section*{Motivation}
+
+Within the field of biology, machine learning has been able to outperform humans in certain analytical tasks \cite{Kakadiaris18}, but the use of black box models has been criticized for its absence of explainable output \cite{Rudin2019}. This project will explore the caveats of machine learning–based algorithms that don’t offer a logical interpretation of their findings.
+
+This analysis will focus on the results of an existing study \textcitecomma{White21}, an investigation into mutations in ACE2 proteins that affect a host’s susceptibility to SARS-CoV-2. The approach of the study was naive, comprising an artificial intelligence–based algorithm that compared protein sequences without factoring in the biological significance of the findings. 
+
+\section*{Objective}
+Existing at the intersection of bioinformatics and machine learning, this analysis aims to answer questions from the perspective of each field:
+\begin{itemize}
+    \item Bioinformatics: what do the findings of the original project mean, ie, why might the identified residues be influential?
+    \item Machine learning: was the original approach too naive without considering the explainability of the results? How effectively can the findings be used as an indicator of a sequence’s susceptibility to the virus?
+\end{itemize}
+
+\section*{Method}
+
+\begin{enumerate}
+    \item Design a binary classification model based on the findings of the original project, and use it to classify some new sequences as susceptible or immune to the virus.
+    \item Investigate the model’s misclassified sequences (especially those that are known to be susceptible but are classified as immune) to recognize the naivety of the original method.
+    \item Explore the original findings to better understand why some sites may be influential, and isolate those that are explainably influential.
+    \item Construct a new classification model based on the reduced findings and compare with the original.
+\end{enumerate}
+
+\printbibliography
+
+\end{document}

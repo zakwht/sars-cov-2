@@ -1,0 +1,161 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[backend=biber,style=ieee]{biblatex} %for bibliography
+\usepackage{array} % for table m
+\usepackage{multirow} % tables
+
+\addbibresource{references.bib}
+\newcommand{\textcitecomma}[1]{(\citeauthor{#1}, \citeyear{#1})}
+
+\title{Progress Report}
+\author{Zak White}
+\date{January 28, 2022}
+
+\begin{document}
+
+\begin{center}
+    {\Large Progress Report} \\
+    CSC499 Honours \\
+    
+    Zak White \\
+    V00899901 \\
+    February 28, 2022 \\
+\end{center}
+
+\section*{Motivation}
+
+Within the field of biology, machine learning has been able to outperform humans in certain analytical tasks \cite{Kakadiaris18}, but the use of black box models has been criticized for its absence of explainable output \cite{Rudin2019}. This project is an exploration the caveats of machine learning–based approaches that don’t offer a logical interpretation of their findings.
+
+This analysis will focus on the results of an existing study \textcitecomma{White21}, an investigation into mutations in ACE2 proteins that affect a host’s susceptibility to SARS-CoV-2. The approach of the study was naive, comprising an artificial intelligence–based algorithm that compared protein sequences without factoring in the biological significance of the findings. 
+
+\section*{Objective}
+Existing at the intersection of bioinformatics and machine learning, this analysis aims to answer questions from the perspective of each field:
+\begin{itemize}
+    \item Bioinformatics: what do the findings of the original project mean, ie, why might the identified residues be influential?
+    \item Machine learning: was the original approach too naive without considering the explainability of the results? How effectively can the findings be used as an indicator of a sequence’s susceptibility to the virus?
+\end{itemize}
+
+\section*{Method}
+
+\begin{enumerate}
+    \item Design a binary classification model based on the findings of the original project, and use it to classify some new sequences as susceptible or immune to the virus.
+    \item Investigate the model’s misclassified sequences (especially those that are known to be susceptible but are classified as immune) to recognize the naivety of the original method.
+    \item Explore the original findings to better understand why some sites may be influential, and isolate those that are explainably influential.
+    \item Construct a new classification model based on the reduced findings and compare with the original.
+\end{enumerate}
+
+\section*{Outline}
+
+The table below offers an initial project outline with estimated time frames.
+
+\begin{table}[h]
+    % \renewcommand{\arraystretch}{1.2}
+    \centering
+    \begin{tabular}{| m{.7\textwidth} |c|}
+        \hline
+         \vspace{2mm}
+         Research \& planning: 
+         \vspace{-2.8mm}
+         \begin{itemize}
+            \setlength\itemsep{0em}
+            \item Construct project outline and task breakdown
+            \item Research related work (similar studies or other works that focus on the application of machine learning in biology)
+         \end{itemize}
+            & Jan 31 - Feb 13 \\
+         \hline
+         \vspace{2mm}
+         Baseline model:
+         \vspace{-2.8mm}
+         \begin{itemize}
+            \setlength\itemsep{0em}
+            \item Collect ACE2 protein sequences from various host organisms based on research indicating the host's susceptibility to SARS-CoV-2
+            \item Create a binary classification model based on the findings of the original study
+            \item Use the model to classify the sequences and evaluate the success of the model
+         \end{itemize}         
+         & Feb 14 - 27 \\
+         \hline
+         \textbf{Progress Report} & Feb 28 \\
+         \hline
+         \vspace{2mm}
+         Explaining the results:
+         \vspace{-2.8mm}
+         \begin{itemize}
+            \setlength\itemsep{0em}
+            \item Use a structural analysis and results from other studies to identify key residues that affect susceptibility to the virus, drawing connections to the results of the original study
+            \item Create a subset of the key residues of the baseline study including only residues with an explainable influence over susceptibility
+         \end{itemize}         
+         & Feb 28 - Mar 13 \\
+         \hline
+         \vspace{2mm}
+         Optimized model:
+         \vspace{-2.8mm}
+         \begin{itemize}
+            \setlength\itemsep{0em}
+            \item Use the reduced findings to create a new binary classification model, and use the same ACE2 sequences to evaluate its correctness
+         \end{itemize}         
+         & Mar 14 - 27 \\
+         \hline
+         Comparison and report & Mar 28 - Apr 22\\
+         \hline
+         \textbf{Final Report and Presentation} & Apr 22 \\
+         \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+
+\section*{Preliminary Work}
+\setlength\parindent{0pt}
+
+\textbf{Data}
+
+To date, twenty-four ACE2 sequences have been collected from a range of mammal hosts from the NCBI protein database \cite{NCBI}. Sixteen the sequences belong to hosts identified to be susceptible to the virus; the other eight are considered immune. More sequences may be retrieved as the project proceeds. \\
+
+
+\textbf{Baseline model}
+
+The approach used for the baseline classification model was a discrete binary decision tree, which takes as input a vector of features corresponding to the acids in each influential site of the original study. The model checks if any of the features match the specific mutation identified in the study, and if so, classifies the sequence as insusceptible. If no matches are found, the model classifies the sequences as susceptible.
+
+\begin{table}[ht]
+  \centering
+  \begin{tabular}[t]{ c | c  c  c }
+    \hline
+    \textbf{Pos} & \multicolumn{3}{c}{\textbf{Mutation}} \\
+    \hline
+    31 & Lysine (K) & $\to$ & Aspartate (D){\rule{0pt}{2.6ex}} \\[1mm]
+    41 & Tyrosine (Y) & $\to$ & Alanine (A) \\[1mm]
+    \multirow{2}{*}{66} & Glycine (G) & \multirow{2}{*}{$\Rightarrow$} & \multirow{2}{*}{Alanine (A)} \\
+    & Arginine (R) \\[1mm]
+    83 & Tyrosine (Y) & $\to$ & Phenylalanine (F) \\[1mm]
+    \multirow{2}{*}{113} & Serine (S) & \multirow{2}{*}{$\Rightarrow$} & \multirow{2}{*}{Asparagine (N)} \\
+    & Arginine (R) \\[1mm]
+    353 & Lysine (K) & $\to$ & Histidine (H) \\[1mm]
+    426 & Proline (P) & $\to$ & Serine (S) \\[1mm]
+    679 & Isoleucine (I) & $\to$ & Valine (V) \\[1mm]
+    \hline
+  \end{tabular}
+  \caption{Mutations that may abolish susceptibility \cite{White21}}
+\end{table}
+
+In short, if any of the mutations from the original study (summarized in the above table) are identified in a sequence, the model classifies the sequence as insusceptible. \\
+
+\textbf{Results}
+
+Below is the confusion matrix for the model based on the results of classifying the twenty-four sequences. The positive class corresponds to sequences that are susceptible to the virus.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c}
+        & \multicolumn{2}{c}{Classification} \\
+        & Positive & Negative  \\
+        \hline
+        Positive & 10 & 6 \\
+        Negative & 0 & 8 \\
+    \end{tabular}
+\end{table}
+
+By looking at the confusion matrix, we can see that each of the negative sequences were correctly classified. However, six of the positive sequences were misclassified as negative (false negatives), meaning the model has low sensitivity. By reducing the mutations the model checks for, the optimized model should produce fewer misclassifications.
+
+\printbibliography
+
+\end{document}
