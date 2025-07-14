@@ -1,7 +1,9 @@
 # The Role of Machine Learning in SARS-CoV-2 Classification
 
 [![License](https://img.shields.io/github/license/zakwht/sars-cov-2)](/LICENSE.md)
-[![Report](https://img.shields.io/badge/report-2022-orange.svg)](/report/report.pdf)
+[![Report](https://img.shields.io/badge/report-2022-yellow.svg)](/report/report.pdf)
+[![Report](https://img.shields.io/badge/cite-BibTeX-green.svg)](/CITATION.bib)
+
 
 ### Abstract
 SARS-CoV-2 is a contagious virus established to affect not only humans, but other mammal species. Studies over the last two years have revealed certain species are distinctly immune to the virus, which can be attributed to differences in the ACE2 protein, the virus’ target protein, in various hosts. This study applies machine learning methods to classify hosts as susceptible or immune to SARS-CoV-2 based on their ACE2 sequences.
