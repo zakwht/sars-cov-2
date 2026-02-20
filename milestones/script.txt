@@ -1,0 +1,266 @@
+	
+	[START: Title] +0:15 / 0:15
+
+Hi, I'm Zak White, thank you for joining my talk today, "The Role of Machine Learning in SARS-CoV-2 Susceptibility Classification", which summarizes some undergraduate research I did from 2021 to 2022.
+
+	[NEXT: Introduction / Biography] +0:45 / 1:00
+
+Just to introduce myself, I am actually a former COBRA student, from back when the lab was operated in Victoria, where I grew up and currently reside.
+
+I completed my bachelor of science - honours - in computer science at the University of Victoria in 2022, along with a minor in statistics. My undergraduate focus was artificial intelligence and computational biology, and the research I'm presenting today exists at the intersection of those fields.
+
+Over the last few years, I have worked in Software Development and Data Analysis roles in the public sector.
+
+I am very happy with my professional trajectory thus far, but I am ready and eager to return to the world of academic research, and hope to soon find an opportunity to jump back into some novel & important projects.
+
+	[NEXT: Introduction / Motivation] +1:00 / 2:00
+
+My introduction to computational biology was a special topics course taught by Dr. Jabbari in 2021. In that course, I worked on a project, which somewhat naively tried to algorithmically identify amino acid mutations that affected a species' susceptibility to SARS-CoV-2, and I'll go introduce that component in more detail today as well.
+
+This research expands on that first project, and tries to test the validity of using AI to classify various host species as susceptible or immune to SARS-CoV-2.
+
+This was also specifically inspired by a conversation I had with Hosna about the caveats of machine learning in bioinformatics and the criticism it has faced.
+
+
+	[NEXT: Introduction / SARS-CoV-2] +1:15 / 3:15
+
+So we are all familiar with COVID, which is caused by the virus SARS-CoV-2. As the pandemic broke out, there was a lot of research going into where this came from, and a lot of findings pointed to zoonotic origins. 
+
+As more research has been conducted, we have discovered that many animals are in fact susceptible to the virus. Among those animals, there’s some that experience respiratory symptoms and some that do not, some that can transmit the virus and some that cannot. But there’s also some animals that have been shown to be effectively immune to the virus altogether. 
+
+As an example, here are the European hedgehog and European rabbit. The hedgehog appears immune to the virus but the virus has been found in this rabbit species. I wanted to understand why this dichotomy exists, and if we can find any patterns between hosts that will help us predict the susceptibility of other species.
+
+
+	[NEXT: Introduction / ACE2] GO SLOW +0:45 / 4
+
+To understand why some species are susceptible, we can look at the target of the virus’ spike protein, which is the ACE2 protein. Differences in the amino acid sequence of this protein can result in different interaction with the spike protein, or possibly inhibit interaction altogether, due to, say, changes in the structure of the molecule.
+
+Here is a visualization of the virus spike protein (the yellow structure) binding to its target ACE2 (cyan), this is the human ACE2 enzyme.
+
+
+	[NEXT: Introduction / ML in Bioinformatics] +1:15 / 5:15
+
+Nowadays, you know, AI is ubiquitous, really everywhere; machine learning is used in most industries to plan, make decisions, and in general improve the efficiency and accuracy various processes.
+
+Within the field of biology, machine learning has been able to outperform human analysis in certain tasks. In one example I looked at ahead of this project, a 2018 study, a team designed a support-vector machine model for classifying risk of cardiovascular disease that produced an accuracy of over 85% and missed fewer disease events than the US guidelines' manual risk calculator.
+
+It's also important to note the criticism the machine learning has faced when it is not paired with biological explanation, especially blackbox models, where an algorithm's logic is not explicit. It's important that biologists and medical profesionals can have confidence in the tools they are using, and that's not always possible when the tools cannot be understood.
+
+
+  [NEXT: Introduction / Sequence classification] +1:15 / 6:30
+
+Proteins, like the ACE2 enzyme, are biomolecules that are composed of chains of organic compound units known as amino acids. There are twenty amino acids, each of which is standardly represented using a single letter. As an example, here's the human ACE2 sequence denoted by a sequence of characters, each representing an amino acid.
+
+The sequence can be taken as a feature vector for classification. The features are categorical (limited to a fixed set of values) and nonordinal (there is no logical sorting order). 
+
+That's the basis of this study, using the amino acid feature vectors of a protein to classify sequences as susceptible or immune to SARS-CoV-2.
+
+
+	[NEXT: Introduction / Objective] +0:45 / 7:15
+
+The objective of this project was to understand the importance of explainable models by comparing the performance of three classification models, each with a different degree of biological interpretation factored in: one strictly machine learning model, one model that logically accounted for mutations, and one model that factored in the effect different acids had on the ACE2's structure.
+
+My hypothesis here was that the biology-driven models would prove to be more accurate than the pure machine-learning model.
+
+
+	[NEXT: Introduction / Related Work] +1:00 / 8:15
+
+When I looked at some related work, I found a handful of use cases of AI in diagnostic applications, but specifically related to viral susceptibility, I didn't find any studies that addressed my research question.
+
+As some examples of what I did find, and these will come back up, I looked at a couple of 2020 studies that used structural and phylogenetic analyses of ACE2 in different species to predict susceptibility to the virus, which were very thorough studies.
+
+Again, I didn't find any studies that specifically addressed the question of "can AI be used to classify viral susceptibility?", which, after doing this project, I have a more profound understanding of why maybe there were no similar studies, but this was really exciting - to research something novel and navigate this new area myself.
+
+
+	[NEXT: Methods / Data] +1:00 / 9:15
+
+So, let's dive into how I went about this research. 
+
+I took a series sequences from the NCBI database - The National Center for Biotechnology Information, each with known susceptibilities to SARS-CoV-2 based on:
+- investigations into non-human primates as models for human infection
+- lab studies that assessed binding affinities between the virus spike protein and its target in various hosts
+- studies focusing on transmission between humans and animals, and
+- reports on city and zoo animals contracting the virus
+
+Each sequence was aligned with the human ACE2 sequence using the Needleman-Wunsch algorithm, to standardize the indexing.
+
+
+	[NEXT: Methods / Baseline model] +0:30 / 9:45
+
+The first model was purely designed using machine learning, with no account for any logic of biology - as a sort of control.
+
+I created a subset of the ACE2 sequence as training data, and used a univariate feature importance algorithm which scored the acids at each index as a feature, using chi-squared tests with a 97.5% confidence threshold. 
+
+This algorithm identified which acids in the training data had the most effect on susceptibility, and the results were used to create a categorical binary decision tree, which I called the baseline model.
+
+
+	[NEXT: Methods / Eliminative model] +1:30 / 11:15
+
+The second classification model was designed based on the results my 2021 course project, titled Identifying Mutations in ACE2 That Influence Susceptibility to SARS-CoV-2, which isolated mutations that appeared exclusively in sequences that were immune to the virus.
+
+Here is the algorithm used in the study: it iteratively compared the acids at each position, assigned weights to mutations based on the number of mutations in the sequence, and summed the weights to identify the most influential mutations.
+
+The results of this algorithm were again used to create a second categorical binary decision tree, which I called the eliminative model - it eliminated mutations that had no obvious effect on viral susceptibility.
+
+The idea behind this model is that it accounts for simple single-acid mutations; it's still exclusively algorithmic, but it has a bit of consideration for the implication of the data, and it's not a black-box model, like the baseline.
+
+
+	[NEXT: Methods / Structural Model] +0:45 / 12:00
+
+The third model extended on the results of the second, by performing a structural analysis, where I compared the structure of the human ACE2 sequence with a sequence that contained one of the identified mutations, to actually see the if each mutation had a structural effect on the molecule.
+
+I also analyzed at a model of the virus' spike protein complexed with the human ACE2 structure, to determine whether the mutation was taking place at a potential binding site.
+
+For any mutation that did not affect the structure or have any evidence of being a binding site in the human ortholog, it was discarded from the updated model and considered an extraneous finding. The remaining mutations were used as branches on a third binary decision tree, called the structural model, which was fundamentally a more biology-driven model than the previous two.
+
+
+	[NEXT: Results / Initial Findings] +0:30 / 12:30
+
+So, taking a look here at the initial findings used for the first two models.
+
+On the left, these are the results of the feature importance algorithm used for the baseline model, which blindly identified acids at six sites that appeared to impede susceptibility.
+
+On the right here, the results used for the second model, based on my 2021 work, which identified eight mutation sites that were suspected to affect susceptibility.
+
+
+	[NEXT: Results / Structural approach] +0:45 13:15
+
+The results of the structural analysis revealed that three of the identified mutations had no effect on the ACE2 structure, and those findings were excluded from the updated model, which was in turn created based on five sites of focus, shown here.
+
+The figure to the right is an example of how a mutation affects the structure: the mutation at position 353 from Lysine to Histidine abolishes a polar bond between the acid and the Aspartate at position 38. Because the structure changed at this position, the mutation was included in the third, structural model.
+
+
+	[NEXT: Results / Sites of focus] +1:00 / 14:15
+
+This table shows which positions were used in each model, with B, E, and S representing the baseline, eliminative, and structural models, respectively. The rightmost column, UniProt, is checked for each position where the UniProt database's ACE2 mutagenesis overview listed the position as influential to susceptibility, based on the aggregation of published studies, kind of a source-of-truth for comparison.
+
+It's clear by looking at this table that the structural model was more true to the findings outlined on UniProt, and the baseline model was not similar at all, which is intuitive and a promising indicator that we can't blindly trust machine learning with no logical accountability.
+
+
+	[NEXT: Results / Classification metrics (1)] +0:30 / 14:45
+
+Confusion matrices shown below were made for each model based on testing subsets, you'll notice the small sample sizes - we will circle back to that.
+
+Each model was tested against a different number of sequences based on the different subsets of sequences used to train each model.
+
+Right away - no models were perfectly accurate. I used these matrices to compute accuracy, sensitivity, and specificity.
+
+
+	[NEXT: Results / Classification metrics (2)] +0:45 / 15:30
+
+ ...Shown here. The trend here, although marginal, is that each model was more accurate than the one before - the more biological interpretation, the merrier.
+
+Also intuitive, but worth highlighting, the structural modal had the highest sensitivity at 89%, and the eliminative model had the highest specificity at 67%, which makes sense considering the eliminative model focused on more positions than the structural model, meaning it leaned towards negative classification.
+
+	
+	[NEXT: Results / statistics] +0:30 / 16:00
+
+For the sake of being thorough, I performed a series of statistical tests, including pairwise proportion tests to compare sensitivities and specificities of each model, as well as McNemar's tests to compared error rates of all models. 
+
+As I expected because of the similar performances of the models and the small sample size, there was no statistical difference between the performances nor misclassification rates of any of the models.
+
+
+	[NEXT: Discussion] + 3:00 / 19:00
+
+So let's unpack the findings of this analysis.
+
+There are a few highlights just from comparing the sites of focus of each model:
+
+Firstly, it's nice to see that index 83 was used in all models, however, that was also the only site used in the machine learning baseline model that was also reported to have an effect on viral susceptibility, per findings listed on UniProt.
+
+What's interesting to me, is that if we take a look at the mutations that were used in the eliminative model but were excluded from the structural model, indices 41, 66, and 679, position 41 stands out as the only one also listed in the UniProt column. Although deemed "extraneous" based on my structural analysis, UniProt notes that a mutation to Alanine at this position "strongly inhibits interaction with the SARS-CoV-2 spike [protein]".
+
+I think, reflecting on site 41, I think it reveals that a basic structural analysis is not enough, just looking at, you know, the polar bonds and salt bridges that form based on different mutations at different indices - this is not enough to be the single dictator of how the spike protein will interact with its target. Molecule structure is a huge and complex component of how these interactions happen, there are many forces at play.
+
+Another interesting result of this study was that the mutation at site 113 (from Serine to Asparagine) was included in both the eliminative and structural models. The mutation inhibits a polar bond between the residue and the Asparagine at site 117.
+
+This mutation was not referenced in the UniProt mutagenesis overview and could be an undiscovered mutation that affects susceptibility, or an extraneous finding. As of today, yes I just checked, there are still no published studies reporting this mutation as having an effect on viral binding - my interpretation is that it's more likely to be symptom that species that have this mutation also have mutations that do affect spike protein interaction.
+
+
+	[NEXT: Discussion / eliminative model] +0:45 / 19:45
+
+This table summarizes the results of the initial findings used for the eliminative model, by showing the acid at each index that was algorithmically identified as influential to susceptibility. The selection of species here were all documented as not susceptible to the virus. The characters in bold here represent mutations that the model found to inhibit susceptibility.
+
+Something worth noting is that, looking at the acids in the pig's ACE2 sequence, none of the acids are emboldened; this model failed to identify any mutation that would influence the susceptibility of the pig, and as such, would incorrectly classify the pig as a potential host species. 
+
+
+	[NEXT: Discussion (2)] +1:30 / 21:15
+
+We can use the models to classify sequences from hosts where susceptibility is unknown, and here's some examples of that based on additional sequences I retrieved from the NCBI database. This, of course, is the intended application of these models.
+
+Paying attention to where the models classified differently, we can say the structural and eliminative models produced more intuitive classifications than the baseline model. 
+
+Some standouts include the chinchilla, classified as susceptible by the baseline model but immune by the other two, based on existing knowledge (other rodents like mice and rats being considered immune) one might predict it is immune, aligning with the eliminative and structural models.
+
+Oppositely, one might expect the black flying fox, a bat - many of which are known carriers of the virus, to be susceptible like the structural and eliminative models suggest. The baseline model did not classify the black flying fox as susceptible, which to me, is unintuitive.
+
+
+	[NEXT: Discussion / Comparison ] +1:45 / 23:00
+
+Out of all the models, the structural model proved to have the greatest accuracy, which aligned with my hypothesis - the more account for biology in the model, the better the performance. However, it's important to recognize the model was only marginally more accurate, and based on my testing, there was no statistically significant difference in model performance.
+
+The intuitive component of the structural model is that its classification is properly explainable from a biological standpoint, which makes it feel more trustworthy.
+
+Also, the structural model placed a greater focus on critical residues than other models, when comparing with the UniProt summary specifically, where four of the five acid indices used for classification were documented to have an effect on susceptibility.
+
+Because there was no statistically significant difference in model performances, I think this analysis validated my 2021 project, where I was exclusively looking at mutation patterns - that method was not completely incorrect.
+
+I think this study revealed that there is a basis for AI use within viral susceptibility diagnostics, and other applications in bioinformatics, especially with access to more training and testing data. However, some parts of this research also show that models would be more impactful when designed with the proper contextualization in mind.
+
+
+	[NEXT: Discussions / Limitations] +1:15 / 24:15
+
+The greatest restriction of this analysis was a limited availability of data, there was not enough concrete research that specifically identified species as susceptible to the virus or not.
+
+This limitation produced less accurate models, as well as less confident performance metrics, which is a notable cause of there being no statistical difference between each model; there is just not enough data to draw additional conclusions there.
+
+I went into this project knowing that data availability is a constraint when trying to answer a lot of problems in bioinformatics, but I was still interested in the problem.
+
+Another limitation is that the data is, like I mentioned before, categorical and non-ordinal, ie the features of each sequence - the acids - cannot be represented as numbers, nor can they be logically sorted. This severely restricts the variety of machine learning models that can be used for the problem.
+
+Again, I recognized these restrictions as I was designing my research question and plan, and looking at related work. It makes sense that I couldn't find any similar studies, but, especially as someone new to computational biology, I still wanted to try to answer my research question. I'm very grateful that I was able to work on this project that combined my academic interests.
+
+
+	[NEXT: Discussion / Future work] +1:30 / 25:45
+
+Some variations of this problem that could be interesting to research include:
+- Multinomial classification, where a sequence is classified by degree of susceptibility, ie immune, moderately susceptible, very susceptible; the issue of susceptibility is not a simple binary, and I think it could be interesting to look into.
+- Multi-label classification: where a sequence is classified as susceptible or not, symptomatic or not, and transmittable or not.
+- Possible most interestingly: Model with a multidimensional feature space. Each of the twenty amino acids can be categorized based on polarity, charge, and molecular size. Rather than focusing on the specific acid at each position, the model could classify the sequence based on these characteristics - all of which may have an effect on spike protein binding potential.
+
+Also, a more involved structural analysis could improve the performance of the model. Especially if more mutations that affected structure were identified, the model may improve specificity.
+
+The structural analysis could also focus on the effect of mutations in consecutive positions. Some studies have talked about the effect of mutations in positions 82 to 84 together. The models could be expanded to account for this.
+
+	
+	[NEXT: Conclusion] +1:15 / 27:00
+
+In conclusion here, this study loosely addressed the importance of having a biological explanation for classification models. High-stake decisions are a reality of the biology and medical fields, and it's important to be able to have confidence in the tools we use, and when it comes to viral susceptibility classification, we can't have human confidence without an intuitive classification logic.
+
+I did satisfy my hypothesis, that the structural model, the one most contextualized by biology, outperformed the other models with respect to test accuracy (80%). This project is also an example of how AI can be used as a starting point for classification models,
+and that pairing it with biological reasoning can strengthen their performances.
+
+Beyond that, this project offered an interesting validation of my work from 2021, a good introduction to the caveats of machine learning in biology, and an opportunity for me to familiarize myself with more concepts in computational biology.
+
+
+	[NEXT: Thank you] +0:30 / 27:30
+
+That sums up my presentation, thank you for your time! I'd like to thank Dr. Jabbari for guiding me throughout this project, and the 2022 UVic computational biology research and analytics team for their feedback as well.
+
+Please let me know if you have any questions!!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
